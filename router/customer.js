@@ -1,16 +1,9 @@
 const knex = require('../connection/knex_connection')
 const jwt = require('jsonwebtoken')
-const auth = require('./verification')
+// const auth = require('./verification')
 
 module.exports = (Router) => {
     Router.post('/customers',(req,res)=>{
-        // knex('customer').insert(req.body)
-        // .then((data) => {
-        //     res.send('register done')
-        // })
-        // .catch((err) => {
-        //     res.send(err)
-        // })
         knex('customer')
         .insert({
             name:req.body.name,
@@ -73,29 +66,29 @@ module.exports = (Router) => {
     })
 
 
-    // Router.get('/get/customers/:customer_id', (req, res) => {
-    //     var cookie_token = req.headers.cookie
-    //     // console.log(cookie_token)
-    //     var token = cookie_token.slice(6)
-    //     var verify = jwt.verify(token, 'secretkey')
-    //     knex.select('*').from('customer')
-    //     .where('customer_id', req.params.customer_id)
-    //     .then((result) => {
-    //         if(result.length > 0){
-    //             if(verify.email == result[0].email){
-    //                 res.send(result)
-    //             }
-    //             else{
-    //                 res.send('wrong id')
-    //             }
-    //         }else{
-    //             res.send('wrong id')
-        //     }
-        // })
-        // .catch((err) => {
-        //     res.send(err)
-        // })
-    // })
+    Router.get('/get/customers/:customer_id', (req, res) => {
+        var cookie_token = req.headers.cookie
+        // console.log(cookie_token)
+        var token = cookie_token.slice(6)
+        var verify = jwt.verify(token, 'secretkey')
+        knex.select('*').from('customer')
+        .where('customer_id', req.params.customer_id)
+        .then((result) => {
+            if(result.length > 0){
+                if(verify.email == result[0].email){
+                    res.send(result)
+                }
+                else{
+                    res.send('wrong id')
+                }
+            }else{
+                res.send('wrong id')
+            }
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+    })
 
 
 
@@ -203,5 +196,8 @@ module.exports = (Router) => {
         })
     })
       
+
+
+    
 
 }
