@@ -10,14 +10,6 @@ $ sudo apt-get update && sudo apt-get install curl
 ```
 
 ```bash
-$ sudo apt install build-essential apt-transport-https lsb-release ca-certificates curl
-```
-
-```bash
-$ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-```
-
-```bash
 $ sudo apt install nodejs
 ```
 
